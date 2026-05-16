@@ -1,0 +1,16 @@
+PROGRAM MAXMIN
+INTEGER NUMS(5)
+INTEGER I, VMAX, VMIN
+PRINT *, 'Introduza 5 numeros inteiros:'
+DO 10 I = 1, 5
+    READ *, NUMS(I)
+10 CONTINUE
+VMAX = NUMS(1)
+VMIN = NUMS(1)
+DO 20 I = 2, 5
+    VMAX = MAX(VMAX, NUMS(I))
+    VMIN = MIN(VMIN, NUMS(I))
+20 CONTINUE
+PRINT *, 'Maximo: ', VMAX
+PRINT *, 'Minimo: ', VMIN
+END

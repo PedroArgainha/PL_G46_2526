@@ -1,0 +1,7 @@
+PROGRAM ERRO3
+INTEGER X
+X = 10
+IF X .GT. 5 THEN
+    PRINT *, 'Grande'
+ENDIF
+END
