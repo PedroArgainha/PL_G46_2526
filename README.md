@@ -29,7 +29,7 @@ Gera código para a máquina virtual **EWVM** ([ewvm.epl.di.uminho.pt](https://e
 │   ├── conversor.f / .vm
 │   ├── subroutine.f / .vm
 │   ├── fibonacci.f / .vm
-│   ├── nested.f / .vm
+│   ├── tabuada.f / .vm
 │   ├── logica.f / .vm
 │   └── maxmin.f / .vm
 ```

@@ -661,14 +661,31 @@ def p_expression_two_args(p):
     if name == 'MOD':
         p[0] = p[3] + p[5] + ["MOD"]
     elif name == 'MAX':
-        # MAX(a,b): if a > b then a else b
-        lbl_end = symtab.new_label()
+        # MAX(a,b): compara, depois re-avalia o maior
         lbl_b = symtab.new_label()
-        p[0] = p[3] + p[5] + ["DUP 2", "SUP", f"JZ {lbl_b}", "POP 1", f"JUMP {lbl_end}", f"{lbl_b}:", "SWAP", "POP 1", f"{lbl_end}:"]
+        lbl_end = symtab.new_label()
+        code = p[3] + p[5]              # [a, b]
+        code += ["SUP"]                 # a > b ? (consome ambos)
+        code += [f"JZ {lbl_b}"]         # se não, b é maior
+        code += p[3]                    # re-push a (o maior)
+        code += [f"JUMP {lbl_end}"]
+        code += [f"{lbl_b}:"]
+        code += p[5]                    # re-push b (o maior)
+        code += [f"{lbl_end}:"]
+        p[0] = code
     elif name == 'MIN':
-        lbl_end = symtab.new_label()
+        # MIN(a,b): compara, depois re-avalia o menor
         lbl_b = symtab.new_label()
-        p[0] = p[3] + p[5] + ["DUP 2", "INF", f"JZ {lbl_b}", "POP 1", f"JUMP {lbl_end}", f"{lbl_b}:", "SWAP", "POP 1", f"{lbl_end}:"]
+        lbl_end = symtab.new_label()
+        code = p[3] + p[5]              # [a, b]
+        code += ["INF"]                 # a < b ? (consome ambos)
+        code += [f"JZ {lbl_b}"]         # se não, b é menor
+        code += p[3]                    # re-push a (o menor)
+        code += [f"JUMP {lbl_end}"]
+        code += [f"{lbl_b}:"]
+        code += p[5]                    # re-push b (o menor)
+        code += [f"{lbl_end}:"]
+        p[0] = code
     else:
         # Chamada de função com 2 argumentos
         fname = name

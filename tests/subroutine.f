@@ -1,7 +1,8 @@
 PROGRAM TESTSUB
 INTEGER A, B, C
-A = 5
-B = 3
+PRINT *, 'Introduza dois numeros:'
+READ *, A
+READ *, B
 CALL IMPRIME(A, B)
 C = A + B
 PRINT *, 'Soma: ', C
